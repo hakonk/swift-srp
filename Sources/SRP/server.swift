@@ -56,6 +56,8 @@ public struct SRPServer<H: HashFunction> {
         // calculate u = H(clientPublicKey | serverPublicKey)
         let u = SRP<H>.calculateU(clientPublicKey: clientPublicKey.bytes, serverPublicKey: serverKeys.public.bytes)
 
+        guard u != 0 else { throw SRPServerError.nullClientKey }
+
         // calculate S
         let S = ((clientPublicKey.number * verifier.number.power(u, modulus: configuration.N)).power(serverKeys.private.number, modulus: configuration.N))
 
