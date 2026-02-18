@@ -33,7 +33,9 @@ public struct SRPConfiguration<H: HashFunction> {
     }
 
     public enum Prime {
+        @available(*, deprecated, message: "N1024 provides only 80-bit security. Use .N2048 or larger.")
         case N1024
+        @available(*, deprecated, message: "N1536 provides below 112-bit security. Use .N2048 or larger.")
         case N1536
         case N2048
         case N3072
