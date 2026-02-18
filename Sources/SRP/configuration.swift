@@ -199,3 +199,12 @@ public struct SRPConfiguration<H: HashFunction> {
         }
     }
 }
+
+extension SRPConfiguration where H == Crypto.Insecure.SHA1 {
+    /// Initialise SRPConfiguration with known safe prime
+    /// - Parameter prime: enum indicating size of prime
+    @available(*, deprecated, message: "SHA-1 is cryptographically broken. Use SHA256 or stronger.")
+    public init(_ prime: Prime) {
+        self.init(N: prime.group, g: prime.generator)
+    }
+}
